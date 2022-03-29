@@ -1,13 +1,19 @@
-# tasks file for apache
---- 
-- 
-  name: "Install httpd Package"
-  yum: "name=httpd state=latest"
-- 
-  name: "Copy httpd configuration file"
-  template: "src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf"
-- 
-  copy: "src=index.html dest=/var/www/html"
-  name: "Copy index.html file"
-  notify: 
-    - "restart apache"
+---
+# tasks file for web
+- hosts: couchbase_datastores
+  
+  tasks:
+    - name: Name of the game
+      command: echo americano
+
+    - name: Wait for 70 seconds prior to deployment to prod
+      wait_for:
+        timeout: 70
+    
+    - name: deploy to the prod environment
+      environment:
+        prod    #spool out information for this. It should look like http_proxy: http://proxy.example.com:8080
+    
+    - name: Include versions of  
+      
+      
