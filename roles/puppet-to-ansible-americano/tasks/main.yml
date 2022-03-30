@@ -15,5 +15,9 @@
         prod    #spool out information for this. It should look like http_proxy: http://proxy.example.com:8080
     
     - name: Include versions of  
-      
-      
+
+
+    - name: Use systemd as a service provider
+      ansible.builtin.systemd:
+        state: started
+        name: httpd
