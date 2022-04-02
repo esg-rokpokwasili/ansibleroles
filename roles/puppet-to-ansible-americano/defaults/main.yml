@@ -3,7 +3,8 @@
 
   tasks:
     - name: Name of the game
-      command: echo americano
+      debug:
+        msg: "americano"
 
     - name: Wait for 70 seconds prior to deployment to prod
       wait_for:
