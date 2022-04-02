@@ -1,0 +1,11 @@
+[couchbase_datastores]
+10.0.4.87 ansible_ssh_private_key_file=<insertpath> ansible_user=<insertuser>
+10.0.4.117 ansible_ssh_private_key_file=<insertpath> ansible_user=<insertuser>
+10.0.4.186 ansible_ssh_private_key_file=<insertpath> ansible_user=<insertuser>
+10.0.4.95 ansible_ssh_private_key_file=<insertpath> ansible_user=<insertuser>
+10.0.4.173 ansible_ssh_private_key_file=<insertpath> ansible_user=<insertuser>
+
+
+[game_dbs]
+aprl-prod.cqarrfcgwgm5.us-west-2.rds.amazonaws.com ansible_ssh_private_key_file=<insertpath for 'goraisesomeshell'> ansible_user=aprl
+

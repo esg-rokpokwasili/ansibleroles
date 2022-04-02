@@ -1,0 +1,23 @@
+---
+# tasks file for web
+- hosts: couchbase_datastores
+  
+  tasks:
+    - name: Name of the game
+      command: echo americano
+
+    - name: Wait for 70 seconds prior to deployment to prod
+      wait_for:
+        timeout: 70
+    
+    - name: deploy to the prod environment
+      environment:
+        prod    #spool out information for this. It should look like http_proxy: http://proxy.example.com:8080
+    
+    - name: Include versions of  
+
+
+    - name: Use systemd as a service provider
+      ansible.builtin.systemd:
+        state: started
+        name: httpd

@@ -1,4 +1,16 @@
 --- 
-- 
-  name: "restart apache"
-  service: "name=httpd state=restarted"
+# handlers file for apache 
+- name: "Restart Httpd"
+  service: 
+    name: "httpd"
+    state: restarted
+
+- name: "Restart apache2"
+  service: 
+    name: "apache2"
+    state: restarted
+
+- name: "Reload apache2"
+  service: 
+    name: "apache2"
+    state: reloaded

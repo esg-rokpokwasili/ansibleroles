@@ -22,6 +22,7 @@ deployment and provisioning Automation tool maintained by Redhat.
  - Uses existing OpenSSH for connection
  - Agent-less – No need to install any agent on Ansible Clients/Nodes
  - Python/YAML based
+ - Highly flexible and versatile in configuration management of systems.
  - Highly flexible and versatile in configuration management of systems
  - Large number of ready to use modules for system management
  - Custom modules can be added if needed

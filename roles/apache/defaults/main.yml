@@ -1,3 +1,125 @@
 ---
 # defaults file for apache
-base_httpd_listen_port: 80
+ap_extra_software:
+- vim
+- git
+
+#httpd port for webserver
+ap_http_port: 8091
+
+#source code location that is to be deployed
+ap_source_code_location: <insertPath>
+
+# disables the module default_vhost
+- apache2_module:
+    name: default_vhost
+    state: absent
+
+# disables the module mpm_module
+- apache2_module:
+    name: mpm_module
+    state: present    
+    keepalive: 'On'
+    max_keepalive_requests: 500
+
+# enables the default module
+- apache2_module:
+    name: default_mods
+    state: true
+  with_items:
+    - 'access_compat'
+    - 'actions'
+    - 'alias'
+    - 'auth_basic'
+    - 'authn_core'
+    - 'authn_file'
+    - 'autoindex'
+    - 'authz_groupfile'
+    - 'authz_user'
+    - 'cgi'
+    - 'dav'
+    - 'dav_fs'
+    - 'deflate'
+    - 'headers'
+    - 'env'
+    - 'mime'
+    - 'negotiation'
+    - 'proxy'
+    - 'proxy_fcgi'
+    - 'reqtimeout'
+    - 'rewrite'
+    - 'setenvif'
+    - 'status'
+
+# present some writeup in apache_conf
+- apache2_module:
+    name: apache_conf
+    state: present
+    shredr_rewrite:
+      ensure: present
+      content: "<Directory /var/www/app>\n
+    <IfModule mod_rewrite.c>\n
+      RewriteEngine on\n
+      RewriteBase /app\n
+      RewriteRule ^$ index.php [L,QSA]\n
+      RewriteCond %%{ESCAPEDUMMY}{REQUEST_FILENAME} !-d\n
+      RewriteCond %%{ESCAPEDUMMY}{REQUEST_FILENAME} !-f\n
+      RewriteRule (.*) index.php?_path=$1 [L,QSA]\n
+    </IfModule>\n
+  </Directory>"
+
+# 
+- apache2_module:
+    name: apache_vhosts
+    state: present
+    app:
+      servername: 'americano.eastsidegames.com'
+      serveraliases:
+        - '*.eastsidegames.com'
+      access_log: false
+      port: '80'
+      docroot: '/var/www'
+      docroot_owner: 'www-data'
+      docroot_group: 'www-data'
+      directories:
+        - path: '/var/www'
+          allow_override: 'None'
+          options:
+            - 'FollowSymLinks'
+            - 'MultiViews'
+          rewrites:
+            - rewrite_base: '/var/www'
+            - rewrite_rule: '^[0-9]+.[0-9]+.[0-9]+/(.*) /app/$1'   
+      additional_includes:
+        - '/etc/apache2/conf.d/25-shredr_rewrite.conf'
+      aliases:
+        - alias: '/app/sys_static/'
+          path: '/usr/lib/php/shredr/static/'
+      custom_fragment: "<FilesMatch \\.php$>\n
+        SetHandler \"proxy:unix:/var/run/php/php7-fpm.sock|fcgi://localhost/\"\n
+     </FilesMatch>"
+
+#haproxy configurations
+- haproxy_backends:
+    name: 'gearman-prod-bknd'
+    collect_exported: false
+    options:
+      mode: 'tcp'
+      balance: 'leastconn'
+
+- haproxy_frontends:
+    name: 'gearman-prod'
+    ipaddress: '*'
+    ports: '4730'
+    mode: 'tcp'
+    options:
+      default_backend: 'gearman-prod-bknd'
+
+- haproxy_listen:
+    name: 'private_monitoring'
+    ipaddress: '*'
+    ports: '8100'
+    mode: 'http'
+    options:
+      option: 'httplog'
+      stats: ['enable', 'uri /stats', 'refresh 5s', 'auth admin:RyopnaHornep']
