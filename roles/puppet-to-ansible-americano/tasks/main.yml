@@ -13,9 +13,7 @@
     - name: deploy to the prod environment
       environment:
         prod    #spool out information for this. It should look like http_proxy: http://proxy.example.com:8080
-    
-    - name: Include versions of  
-
+      include_versions: false
 
     - name: Use systemd as a service provider
       ansible.builtin.systemd:
