@@ -1,4 +1,4 @@
-[couchbase_datastores]
+[couchbase_datastores]  # bucket_name: americano-static / bucket_password: whereisRogerRabbit
 10.0.4.87 ansible_ssh_private_key_file=<insertpath> ansible_user=<insertuser>
 10.0.4.117 ansible_ssh_private_key_file=<insertpath> ansible_user=<insertuser>
 10.0.4.186 ansible_ssh_private_key_file=<insertpath> ansible_user=<insertuser>

@@ -1,9 +1,4 @@
 ---
-# defaults file for apache
-ap_extra_software:
-- vim
-- git
-
 #httpd port for webserver
 ap_http_port: 8091
 
