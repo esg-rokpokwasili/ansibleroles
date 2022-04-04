@@ -1,0 +1,19 @@
+filebeat_logs:
+  apache:
+    paths:
+      - '/var/log/apache2/*error.log'
+    close_inactive: '2h'
+    tail_files: true
+    tags:
+      - 'prod'
+      - 'americano'
+      - 'web'
+  serverlog:
+    paths:
+      - '/var/log/serverlog/*.log'
+    close_inactive: '2h'
+    tail_files: true
+    tags:
+      - 'prod'
+      - 'americano'
+      - 'web'

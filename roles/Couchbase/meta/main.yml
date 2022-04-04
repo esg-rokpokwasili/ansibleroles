@@ -1,7 +1,7 @@
 galaxy_info:
-  author: your name
-  description: your description
-  company: your company (optional)
+  author: Roy Okpokwasili
+  description: This is a draft Ansible role created to migrate Puppet to Ansible using Americano as a use case
+  company: East Side Games Studio
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
