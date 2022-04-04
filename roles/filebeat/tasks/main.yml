@@ -1,5 +1,4 @@
 ---
-#
 # install/run filebeat elk client
 #
 - name: Copy filebeat yum repo file
